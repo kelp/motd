@@ -6,9 +6,12 @@
 set TMP (mktemp)
 set MOTD $HOME/.config/motd/motd
 
-neofetch >> $TMP
+neofetch --ascii_distro arch_small >> $TMP
 
-last -n 3 | grep -v wtmp >> $TMP
+echo "Updates: " >> $TMP
+checkupdates >> $TMP
+echo "Last: " >> $TMP
+last -n 2 | grep -v wtmp | sed '/^$/d'  >> $TMP
 
 mv $TMP $HOME/.config/motd/motd
 
